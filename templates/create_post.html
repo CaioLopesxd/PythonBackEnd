@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <title>Criação de Post</title>
+</head>
+<body>
+   <header>
+         <div>
+              <h1>Criação de Post</h1>
+         </div>
+   </header> 
+    <main>
+         <form action="{{ url_for('create_post') }}" method="POST">
+              <label for="titulo">Título</label>
+              <input type="text" name="titulo" id="titulo">
+              <label for="conteudo">Conteúdo</label>
+              <textarea name="conteudo" id="conteudo" cols="30" rows="10"></textarea>
+              <button type="submit">Criar Post</button>
+         </form>
+    </main>
+</body>
+</html>

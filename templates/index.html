@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/index.css') }}">
+    <title>Blog</title>
+</head>
+<body>
+    <header class="header_container">
+        <div>
+            Em breve
+        </div>
+        <div>
+            <h1>Blog</h1>
+        </div>
+        <nav>
+            <a href="{{ url_for('post_list') }}">Lista das Ultimas Postagens</a>
+            <a href="{{ url_for('create_post') }}">Criação de Postagem</a>
+        </nav>
+    </header>
+    <main>
+        <div class="main_container">
+            <h2>Posts</h2>
+            <div class="posts">
+                {% for post in posts %}
+                    <div class="post">
+                        <h3>{{ post.title }}</h3>
+                        <p>{{ post.content }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </main>
+</body>
+</html>

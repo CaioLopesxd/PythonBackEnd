@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
+    <title>Postagens</title>
+    <style>
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #fff 3px solid;
+        }
+        header h1 {
+            text-align: center;
+            text-transform: uppercase;
+            margin: 0;
+            font-size: 1.5em;
+        }
+        article {
+            background: #fff;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        h1 {
+            font-size: 1.5em;
+            color: #333;
+        }
+        p {
+            font-size: 1em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Postagens</h1>
+        </div>
+    </header>
+    <div class="container">
+        {% for post in posts %}
+            <article>
+                <h2>{{ post.titulo }}</h2>
+                <p>{{ post.conteudo }}</p>
+                <p class="date">Postado em: {{ post.data.strftime('%d/%m/%Y %H:%M:%S') }}</p>
+            </article>
+        {% endfor %}
+    </div>
+</body>
+</html>
