@@ -8,8 +8,25 @@ article {
   padding: 20px;
   margin: 20px 0;
   border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
-
+.delete {
+  background-color: #f00;
+  font-size: 1rem;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 100px;
+  height: 50px;
+}
+.delete:hover {
+  transition: 0.5s;
+  background-color: #f55;
+}
 p {
   font-size: 1em;
   color: #666;

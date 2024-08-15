@@ -63,6 +63,11 @@
             <button type="submit">Criar Post</button>
         </form>
     </main>
+    <div class="erro">
+        {% if erro %}
+            <p>{{ erro }}</p>
+        {% endif %}
+    </div>
     <script src="{{ url_for('static', filename='scripts/showMenu.js') }}"></script>
 </body>
 </html>

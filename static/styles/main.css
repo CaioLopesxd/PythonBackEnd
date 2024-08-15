@@ -50,6 +50,7 @@ ul {
 }
 .menu a:hover {
   background-color: #444;
+  border-radius: 3px;
 }
 @keyframes fadeIn {
   from {

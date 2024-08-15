@@ -27,10 +27,15 @@ def create_post():
             'conteudo': conteudo,
             'data': datetime.now()
         }
+        if post['titulo'] == '' or post['conteudo'] == '':
+            erro = 'Preencha todos os campos'
+            return redirect(url_for('create_post'))
         mongo.db.posts.insert_one(post)
         return redirect(url_for('post_list'))
     
     return render_template('create_post.html')
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)

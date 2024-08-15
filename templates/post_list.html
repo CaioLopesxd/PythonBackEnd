@@ -53,11 +53,15 @@
     <div class="container">
       {% for post in posts %}
       <article>
-        <h2>{{ post.titulo }}</h2>
-        <p>{{ post.conteudo }}</p>
-        <p class="date">
-          Postado em: {{ post.data.strftime('%d/%m/%Y %H:%M:%S') }}
-        </p>
+        <div>
+          <h2>{{ post.titulo }}</h2>
+          <p>{{ post.conteudo }}</p>
+          <p class="date">
+            Postado em: {{ post.data.strftime('%d/%m/%Y %H:%M:%S') }}
+          </p>
+          <p>delete{{ post._id}}</p>
+        </div>
+        <button class="delete" data-id="{{post._id}}">Delete</button>
       </article>
       {% endfor %}
     </div>
