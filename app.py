@@ -1,6 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from flask_pymongo import PyMongo
 from datetime import datetime
+from bson.objectid import ObjectId
 
 app = Flask(__name__)
 
@@ -35,7 +36,12 @@ def create_post():
     
     return render_template('create_post.html')
 
-
+@app.route("/delete_post", methods=['POST'])
+def delete_post():
+    post_id = request.form.get('id')
+    if post_id:
+        mongo.db.posts.delete_one({'_id': ObjectId(post_id)})
+    return jsonify({'success': True})
 
 if __name__ == "__main__":
     app.run(debug=True)

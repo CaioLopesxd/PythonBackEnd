@@ -61,10 +61,34 @@
           </p>
           <p>delete{{ post._id}}</p>
         </div>
-        <button class="delete" data-id="{{post._id}}">Delete</button>
+        <button class="delete" data-id="{{ post._id }}">Delete</button>
       </article>
       {% endfor %}
     </div>
     <script src="{{ url_for('static', filename='scripts/showMenu.js') }}"></script>
+    <script>
+      document.querySelectorAll(".delete").forEach((button) => {
+        button.addEventListener("click", function () {
+          const postId = this.getAttribute("data-id");
+          fetch("/delete_post", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: new URLSearchParams({
+              id: postId,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                location.reload();
+              } else {
+                alert("Erro ao deletar o post.");
+              }
+            });
+        });
+      });
+    </script>
   </body>
 </html>
