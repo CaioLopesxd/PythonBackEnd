@@ -33,14 +33,18 @@ ul {
   list-style: none;
 }
 .menu {
+  width: 150px;
+  height: 150px;
+  font-size: 1rem;
   display: none;
   position: absolute;
   top: 7%;
   right: 0%;
   background-color: #333;
   padding: 10px;
-  animation: fadeIn 0.5s ease-in-out;
+  animation: fadeIn 0.5s ease;
   border-radius: 0 0 0 10px;
+  gap: 5px;
 }
 .menu a {
   color: #fff;
@@ -53,10 +57,14 @@ ul {
   border-radius: 3px;
 }
 @keyframes fadeIn {
-  from {
-    opacity: 0;
+  0% {
+    height: 0;
+    font-size: 0;
   }
-  to {
-    opacity: 1;
+  50%{
+    font-size: 0;
+  }
+  100% {
+    font-size: 1rem;
   }
 }

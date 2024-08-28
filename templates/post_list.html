@@ -47,6 +47,7 @@
           <li><a href="{{ url_for('post_list') }}">Lista de Post</a></li>
           <li><a href="{{ url_for('create_post') }}">Criar Post</a></li>
           <li><a href="{{url_for('index')}}">Home</a></li>
+          <li><a href="{{url_for('logout')}}" style="color: brown;">Logout</a></li>
         </ul>
       </nav>
     </header>
@@ -59,7 +60,6 @@
           <p class="date">
             Postado em: {{ post.data.strftime('%d/%m/%Y %H:%M:%S') }}
           </p>
-          <p>delete{{ post._id}}</p>
         </div>
         <button class="delete" data-id="{{ post._id }}">Delete</button>
       </article>

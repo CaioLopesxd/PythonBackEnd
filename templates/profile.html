@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,11 +11,7 @@
       rel="stylesheet"
       href="{{ url_for('static', filename='styles/main.css') }}"
     />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles/index.css') }}"
-    />
-    <title>Blog</title>
+    <title>Perfil</title>
   </head>
   <body>
     <header class="header_container">
@@ -47,23 +43,17 @@
           <li><a href="{{ url_for('post_list') }}">Lista de Post</a></li>
           <li><a href="{{ url_for('create_post') }}">Criar Post</a></li>
           <li><a href="{{url_for('index')}}">Home</a></li>
-          <li><a href="{{url_for('logout')}}" style="color: brown;">Logout</a></li>
+          <li>
+            <a href="{{url_for('logout')}}" style="color: brown">Logout</a>
+          </li>
         </ul>
       </nav>
     </header>
-    <main>
-      <div class="main_container">
-        <h2>Posts</h2>
-        <div class="posts">
-          {% for post in posts %}
-          <div class="post">
-            <h3>{{ post.title }}</h3>
-            <p>{{ post.content }}</p>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
+    <main class="container">
+      <h1>Perfil</h1>
+      <p>Olá, {{ user.username }}</p>
     </main>
+    
+    <script src="{{ url_for('static', filename='scripts/showMenu.js') }}"></script>
   </body>
-  <script src="{{ url_for('static', filename='scripts/showMenu.js') }}"></script>
 </html>
