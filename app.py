@@ -119,5 +119,12 @@ def delete_post():
         mongo.db.posts.delete_one({'_id': ObjectId(post_id)})
     return jsonify({'success': True})
 
+@app.route("/check_login_status")
+def check_login_status():
+    if current_user.is_authenticated:
+        return jsonify({'logged_in': True, 'username': current_user.username})
+    else:
+        return jsonify({'logged_in': False})
+    
 if __name__ == "__main__":
     app.run(debug=True)
