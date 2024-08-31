@@ -27,6 +27,7 @@ body {
   background-color: transparent;
   cursor: pointer;
   color: #333;
+  border-radius: 5px;
   padding: 5px 10px;
 }
 ul {
@@ -62,7 +63,7 @@ ul {
     height: 0;
     font-size: 0;
   }
-  50%{
+  50% {
     font-size: 0;
   }
   100% {
