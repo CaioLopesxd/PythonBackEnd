@@ -57,7 +57,10 @@ ul {
   background-color: #444;
   border-radius: 3px;
 }
-
+.name{
+  font-size: 1.5rem;
+  color: cornflowerblue;
+}
 @keyframes fadeIn {
   0% {
     height: 0;

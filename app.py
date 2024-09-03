@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify
+from flask import Flask, render_template, request, redirect, url_for, jsonify,make_response
 from flask_pymongo import PyMongo
 from datetime import datetime
 from bson.objectid import ObjectId
@@ -8,6 +8,7 @@ from flask_login import login_user, logout_user, login_required
 from flask import flash
 from flask_login import UserMixin
 from flask_login import current_user
+import gridfs
 
 app = Flask(__name__)
 
@@ -18,6 +19,7 @@ mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+fs = gridfs.GridFS(mongo.db)
 
 app.config['SESSION_COOKIE_EXPIRES'] = None
 
@@ -78,7 +80,22 @@ def profile():
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+    posts_cursor = mongo.db.posts.find()
+    posts = list(posts_cursor)
+    return render_template('index.html', posts=posts)
+
+@app.route("/server_image/<image_id>")
+def server_image(image_id):
+    try:
+        image_id = ObjectId(image_id)  
+        image = fs.get(image_id)
+        response = make_response(image.read())
+        response.content_type = 'image/jpeg' 
+        return response
+    except (gridfs.NoFile, Exception) as e:
+        return str(e), 404
+
+
 @app.route("/logout")
 def logout():
     logout_user()
@@ -98,15 +115,27 @@ def create_post():
     if request.method == 'POST':
         titulo = request.form.get('titulo')
         conteudo = request.form.get('conteudo')
+        imagem = request.files.get('imagem')  
+        
+        if not titulo or not conteudo:
+            flash('Preencha todos os campos obrigatórios')
+            return redirect(url_for('create_post'))
+
+        if imagem and imagem.filename != '':
+            try:
+                imagem_id = fs.put(imagem, filename=imagem.filename)
+            except Exception as e:
+                flash(f'Erro ao salvar a imagem: {e}')
+                return redirect(url_for('create_post'))
+        
         post = {
             'titulo': titulo,
             'conteudo': conteudo,
             'data': datetime.now(),
-            'autor': current_user.username  
+            'autor': current_user.username,
+            'imagem_id': imagem_id  
         }
-        if post['titulo'] == '' or post['conteudo'] == '':
-            erro = 'Preencha todos os campos'
-            return redirect(url_for('create_post'))
+
         mongo.db.posts.insert_one(post)
         return redirect(url_for('post_list'))
     

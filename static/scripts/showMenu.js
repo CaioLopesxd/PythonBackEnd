@@ -17,11 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
     .then((data) => {
       if (!data.logged_in) {
         loginLogout.innerHTML = "Login";
-        loginLogout.style.color = "green";
+        loginLogout.style.color = "#00796b";
         return;
       }
       loginLogout.innerHTML = "Logout";
-      loginLogout.style.color = "#a52a2a";
+      loginLogout.style.color = "#d32f2f";
     })
     .catch((error) =>
       console.error("Erro ao verificar o status de login:", error)
