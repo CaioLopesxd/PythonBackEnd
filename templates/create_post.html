@@ -26,7 +26,7 @@
       <nav class="showMenu">
         <ul>
           <li>
-            <button class="icon-button">
+            <button class="icon-button" aria-label="Abrir Menu">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24px"
@@ -48,36 +48,49 @@
           <li><a href="{{ url_for('create_post') }}">Criar Post</a></li>
           <li><a href="{{ url_for('index') }}">Home</a></li>
           <li>
-            <a href="{{url_for('logout')}}" class="loginLogout">Logout</a>
+            <a href="{{ url_for('logout') }}" class="loginLogout">Logout</a>
           </li>
         </ul>
       </nav>
     </header>
-    <main class="container">
+    <main class="main-content">
       <form
-        class="formPost"
+        class="post-form"
         action="{{ url_for('create_post') }}"
         method="POST"
         enctype="multipart/form-data"
       >
         <label for="titulo">Título</label>
-        <input type="text" name="titulo" id="titulo" required />
+        <input
+          type="text"
+          name="titulo"
+          id="titulo"
+          placeholder="Digite o título do post"
+          required
+        />
+
         <label for="conteudo">Conteúdo</label>
         <textarea
           name="conteudo"
           id="conteudo"
-          cols="30"
+          placeholder="Escreva o conteúdo do post"
           rows="10"
           required
         ></textarea>
+
         <label for="imagem">Imagem</label>
         <input type="file" name="imagem" id="imagem" />
+
         <button type="submit">Criar Post</button>
       </form>
-      <div class="erro">
-        {% if erro %}
-        <p>{{ erro }}</p>
-        {% endif %}
+      <div>
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li style="color: red">{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
       </div>
     </main>
     <script src="{{ url_for('static', filename='scripts/showMenu.js') }}"></script>

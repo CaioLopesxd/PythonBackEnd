@@ -1,14 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify,make_response
+from flask import Flask, render_template, request, redirect, url_for, jsonify,make_response,flash
 from flask_pymongo import PyMongo
 from datetime import datetime
 from bson.objectid import ObjectId
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_login import login_user, logout_user, login_required
-from flask import flash
 from flask_login import UserMixin
 from flask_login import current_user
 import gridfs
+
 
 app = Flask(__name__)
 
@@ -27,7 +27,11 @@ class User(UserMixin):
     def __init__(self, username, user_id):
         self.username = username
         self.id = user_id
-
+        
+@login_manager.unauthorized_handler
+def unauthorized_callback():
+    flash('Por favor, faça login para acessar esta página.')
+    return redirect(url_for('login'))
 
 @login_manager.user_loader
 def load_user(user_id):
