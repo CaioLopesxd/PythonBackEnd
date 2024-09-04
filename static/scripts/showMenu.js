@@ -40,3 +40,8 @@ loginLogout.addEventListener("click", function () {
     });
 });
 
+const profileImage = document.querySelector(".profileImage");
+
+profileImage.addEventListener("click", function () {
+  window.location.href = "/profile";
+});

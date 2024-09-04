@@ -108,7 +108,6 @@ def logout():
 @app.route("/post_list")
 @login_required
 def post_list():
-    current_user_id = current_user.id
     posts_cursor = mongo.db.posts.find({'autor': current_user.username})
     posts = list(posts_cursor)
     return render_template('post_list.html', posts=posts)
