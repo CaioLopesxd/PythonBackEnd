@@ -15,14 +15,6 @@
   </head>
   <body>
     <header class="header_container">
-      <div class="profileImage">
-        <img
-          src="{{ url_for('static', filename='images/perfilSemFoto.jpg') }}"
-        />
-      </div>
-      <div>
-        <h1>Blog</h1>
-      </div>
       <nav class="showMenu">
         <button class="icon-button">
           <svg
@@ -38,6 +30,25 @@
           </svg>
         </button>
       </nav>
+      <nav class="menu">
+        <ul>
+          <li><a href="{{ url_for('post_list') }}">Lista de Post</a></li>
+          <li><a href="{{ url_for('create_post') }}">Criar Post</a></li>
+          <li><a href="{{ url_for('index') }}">Home</a></li>
+          <li>
+            <a href="{{ url_for('logout') }}" class="loginLogout">Logout</a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div>
+        <h1>Blog</h1>
+      </div>
+      <div class="profileImage">
+        <img
+          src="{{ url_for('static', filename='images/perfilSemFoto.jpg') }}"
+        />
+      </div>
       <nav class="menu">
         <ul>
           <li><a href="{{ url_for('post_list') }}">Lista de Post</a></li>

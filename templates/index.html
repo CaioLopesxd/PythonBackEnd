@@ -7,8 +7,8 @@
   <div class="main_container">
     <div class="posts">
       {% for post in posts %}
-      <article>
-        <div>
+      <article class="card">
+        <div class="card-content">
           <h2>{{ post.titulo }}</h2>
           <p>{{ post.conteudo }}</p>
           <p class="date">
@@ -16,10 +16,12 @@
           </p>
           <p class="name">{{ post.autor }}</p>
         </div>
-        <img
-          src="{{ url_for('server_image', image_id=post.imagem_id) }}"
-          alt="Post Image"
-        />
+        <div class="imgCard">
+          <img 
+            src="{{ url_for('server_image', image_id=post.imagem_id) }}"
+            alt="Post Image"
+          />
+        </div>
       </article>
       {% endfor %}
     </div>
