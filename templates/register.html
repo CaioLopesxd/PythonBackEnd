@@ -1,28 +1,51 @@
-{% extends 'base.html' %}
- {% block content %}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='styles/register.css') }}"
-/>
-<main class="mainContainer">
-  <form method="POST">
-    <label for="username">Username:</label>
-    <input type="text" id="username" name="username" required />
-    <br />
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required />
-    <br />
-    <button type="submit" class="buttonRegister">Register</button>
-    <p><a href="{{ url_for('login') }}" class="link">Login</a></p>
-  </form>
-  <div>
-    {% with messages = get_flashed_messages() %} {% if messages %}
-    <ul>
-      {% for message in messages %}
-      <li style="color: red">{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %} {% endwith %}
+{% extends 'base.html' %} {% block content %}
+
+<section>
+  <div
+    class="card p-4 shadow-sm  "
+  >
+    <h2 class="card-title mb-4">Registre-se</h2>
+    <form method="POST">
+      <div class="form-group mb-3">
+        <label for="username" class="form-label">Username:</label>
+        <input
+          class="form-control"
+          type="text"
+          id="username"
+          name="username"
+          required
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label class="form-label" for="password">Password:</label>
+        <input
+          class="form-control"
+          type="password"
+          id="password"
+          name="password"
+          required
+        />
+      </div>
+
+        <button type="submit" class="btn btn-outline-dark w-100">
+          Register
+        </button>
+        <div class="d-flex justify-content-center mt-3">
+          <a href="{{ url_for('login') }}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover ms-2">Login</a>
+        </div>
+      </div>
+    </form>
+    <div class="mt-3">
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <div class="alert alert-warning">
+        <ul class="mb-0">
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %} {% endwith %}
+    </div>
   </div>
-</main>
+</section>
 {% endblock %}

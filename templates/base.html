@@ -1,71 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-br">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='styles/main.css') }}"
-    />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}Blog{% endblock %}</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+    <style>
+      .imgWidth {
+        width: 50px;
+        border-radius: 50%;
+      }
+    </style>
   </head>
-  <body>
-    <header class="header_container">
-      <nav class="showMenu">
-        <button class="icon-button">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="24px"
-            viewBox="0 -960 960 960"
-            width="24px"
-            fill="#e8eaed"
-          >
-            <path
-              d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"
-            />
-          </svg>
+  <body class="d-flex flex-column min-vh-100">
+    <header class="bg-dark text-white sticky-top">
+      <nav
+        class="navbar navbar-expand-lg mx-auto p-2 d-flex justify-content-between"
+      >
+        <button
+          class="btn btn-outline-light"
+          type="button"
+          data-bs-toggle="offcanvas"
+          data-bs-target="#offcanvasWithBothOptions"
+          aria-controls="offcanvasWithBothOptions"
+        >
+          Menu
         </button>
+        <a href="{{ url_for('index') }}" class="navbar-brand link-light"
+          >Blog</a
+        >
+        <a href="{{ url_for('profile') }}" class="navbar-brand">
+          <img
+            src="/static/images/perfilSemFoto.jpg"
+            class="imgWidth"
+            alt="Imagem do perfil"
+          />
+        </a>
       </nav>
-      <nav class="menu">
-        <ul>
-          <li><a href="{{ url_for('post_list') }}">Lista de Post</a></li>
-          <li><a href="{{ url_for('create_post') }}">Criar Post</a></li>
-          <li><a href="{{ url_for('index') }}">Home</a></li>
-          <li>
-            <a href="{{ url_for('logout') }}" class="loginLogout">Logout</a>
-          </li>
-        </ul>
-      </nav>
-      
-      <div>
-        <h1>Blog</h1>
+
+      <div
+        class="offcanvas offcanvas-start"
+        data-bs-scroll="true"
+        tabindex="-1"
+        id="offcanvasWithBothOptions"
+        aria-labelledby="offcanvasWithBothOptionsLabel"
+      >
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">
+            Options
+          </h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="offcanvas"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="offcanvas-body">
+          <p>
+            <a
+              class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover ms-2"
+              href="{{ url_for('index') }}"
+              >Home</a
+            >
+          </p>
+          <p>
+            <a
+              class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover ms-2"
+              href="{{ url_for('create_post') }}"
+              >Criar Post</a
+            >
+          </p>
+          <p>
+            <a
+              class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover ms-2"
+              href="{{ url_for('post_list') }}"
+              >Meus Posts</a
+            >
+          </p>
+          <p>
+            <a
+              class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover ms-2"
+              href="{{ url_for('login') }}"
+              >Login</a
+            >
+          </p>
+        </div>
       </div>
-      <div class="profileImage">
-        <img
-          src="{{ url_for('static', filename='images/perfilSemFoto.jpg') }}"
-        />
-      </div>
-      <nav class="menu">
-        <ul>
-          <li><a href="{{ url_for('post_list') }}">Lista de Post</a></li>
-          <li><a href="{{ url_for('create_post') }}">Criar Post</a></li>
-          <li><a href="{{ url_for('index') }}">Home</a></li>
-          <li>
-            <a href="{{ url_for('logout') }}" class="loginLogout">Logout</a>
-          </li>
-        </ul>
-      </nav>
     </header>
-    {% block content %} {% endblock %}
-    <footer class="footer_container">
-      <div class="footer_content">
-        <p>&copy; 2024 Meu Blog. Todos os direitos reservados.</p>
+    <main class="flex-fill container-fluid d-flex justify-content-center align-items-center">
+      {% block content %} {% endblock %}
+    </main>
+    <footer class="footer bg-dark p-2">
+      <div class="text-center text-white mt-3">
+        <p>© 2024 - Blog</p>
       </div>
     </footer>
-    <script src="{{ url_for('static', filename='scripts/showMenu.js') }}"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
