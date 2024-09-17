@@ -1,5 +1,23 @@
 {% extends 'base.html' %} {% block content %}
-<section class="container">
-  <p>{{ user.username }}</p>
+<section class="container-sm mt-4">
+  <div>
+    <form method="POST" action="{{ url_for('profile') }}" enctype="multipart/form-data">
+      <input type="file" name="profilePicture" id="profilePicture" class="form-control container"/>
+      <button type="submit" class="btn btn-outline-dark">Atualizar Foto</button>
+    </form>
+  
+  </div>
+  
+  <div class="mt-3">
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <div class="alert alert-warning">
+      <ul class="mb-0">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %} {% endwith %}
+  </div>
 </section>
 {% endblock %}

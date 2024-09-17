@@ -30,7 +30,7 @@ class User(UserMixin):
         
 @login_manager.unauthorized_handler
 def unauthorized_callback():
-    flash('Por favor, faça login para acessar esta página.')
+    flash('Faça login para acessar esta página.')
     return redirect(url_for('login'))
 
 @login_manager.user_loader
@@ -76,17 +76,40 @@ def login():
         return redirect(url_for('login'))
     return render_template('login.html')
 
-@app.route("/profile")
+@app.route("/profile",methods=['GET','POST'])
 @login_required
 def profile():
     user = mongo.db.users.find_one({'_id': ObjectId(current_user.id)})
+    if request.method == 'POST':
+        profilePicture = request.files.get('profilePicture')
+        if profilePicture and profilePicture.filename != '':
+            try:
+                profilePicture_id = fs.put(profilePicture, filename=profilePicture.filename)
+                mongo.db.users.update_one({'_id': ObjectId(current_user.id)}, {'$set': {'profilePicture_id': profilePicture_id}})
+                flash('Imagem salva com sucesso')
+            except Exception as e:
+                flash(f'Erro ao salvar a imagem')
+                return redirect(url_for('profile'))
     return render_template('profile.html', user=user)
 
+
+@app.route("/profile_image/<image_id>")
+def profile_image(image_id):
+    try:
+        image_id = ObjectId(image_id)  
+        image = fs.get(image_id)
+        response = make_response(image.read())
+        response.content_type = 'image/jpeg' 
+        return response
+    except (gridfs.NoFile, Exception) as e:
+        return str(e), 404
+    
 @app.route("/")
 def index():
+
     posts_cursor = mongo.db.posts.find()
     posts = list(posts_cursor)
-    return render_template('index.html', posts=posts)
+    return render_template('index.html', posts=posts,user=current_user) 
 
 @app.route("/server_image/<image_id>")
 def server_image(image_id):
@@ -110,7 +133,7 @@ def logout():
 def post_list():
     posts_cursor = mongo.db.posts.find({'autor': current_user.username})
     posts = list(posts_cursor)
-    return render_template('post_list.html', posts=posts)
+    return render_template('post_list.html', posts=posts,user=current_user)
 
 @app.route("/create_post", methods=['GET', 'POST'])
 @login_required
@@ -142,7 +165,7 @@ def create_post():
         mongo.db.posts.insert_one(post)
         return redirect(url_for('post_list'))
     
-    return render_template('create_post.html')
+    return render_template('create_post.html',user=current_user)
 
 @app.route("/delete_post", methods=['POST'])
 def delete_post():

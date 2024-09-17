@@ -1,6 +1,6 @@
 {% extends 'base.html' %} {% block content %}
 <section class="container d-flex justify-content-center align-items-center">
-  <div class="card p-4 shadow-sm">
+  <div class="card p-4 shadow-sm ">
     <h2 class="card-title mb-4">Login</h2>
     <form method="POST">
       <div class="form-group mb-3">
@@ -28,9 +28,17 @@
       <button type="submit" class="btn btn-outline-dark w-100">Login</button>
 
       <div class="d-flex justify-content-between mt-3">
-        <a href="{{ url_for('register') }}" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover ms-2">Registre-se</a>
+        <a
+          href="{{ url_for('register') }}"
+          class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover ms-2"
+          >Registre-se</a
+        >
 
-        <a href="#" class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover ms-2">Esqueci Minha Senha</a>
+        <a
+          href="#"
+          class="link-secondary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover ms-2"
+          >Esqueci Minha Senha</a
+        >
       </div>
     </form>
 

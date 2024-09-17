@@ -2,12 +2,13 @@
 
 ## Descrição
 
-Este repositório contém o código e os exemplos relacionados ao desenvolvimento de backend utilizando a linguagem Python. O objetivo principal é praticar com python utilizando flask no backend e entender como funciona o MongoDb.
+Este repositório contém o código e os exemplos relacionados ao desenvolvimento de backend utilizando a linguagem Python e no frontend bootstrap . O objetivo principal é praticar com python utilizando flask no backend e entender como funciona o MongoDb.
 
 ## Recursos
 
 Python
 MongoDB
+Bootstrap
 
 ## Editores
 

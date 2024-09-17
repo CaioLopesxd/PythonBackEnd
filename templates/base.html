@@ -12,7 +12,7 @@
     />
     <style>
       .imgWidth {
-        width: 50px;
+        width: 3rem;
         border-radius: 50%;
       }
     </style>
@@ -35,11 +35,19 @@
           >Blog</a
         >
         <a href="{{ url_for('profile') }}" class="navbar-brand">
+          {% if current_user.is_authenticated %} {% if user.profilePicture_id %}
           <img
-            src="/static/images/perfilSemFoto.jpg"
+            src="{{ url_for('profile_image', image_id=user.profilePicture_id) }}"
             class="imgWidth"
-            alt="Imagem do perfil"
+            alt="Profile Image"
           />
+          {% else %}
+          <img
+            src="{{ url_for('static', filename='images/perfilSemFoto.jpg') }}"
+            class="imgWidth"
+            alt="Profile Image"
+          />
+          {% endif %} {% endif %}
         </a>
       </nav>
 
@@ -93,7 +101,9 @@
         </div>
       </div>
     </header>
-    <main class="flex-fill container-fluid d-flex justify-content-center align-items-center">
+    <main
+      class="flex-fill container-fluid d-flex justify-content-center align-items-center"
+    >
       {% block content %} {% endblock %}
     </main>
     <footer class="footer bg-dark p-2">
