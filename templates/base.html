@@ -35,9 +35,9 @@
           >Blog</a
         >
         <a href="{{ url_for('profile') }}" class="navbar-brand">
-          {% if current_user.is_authenticated %} {% if user.profilePicture_id %}
+          {% if current_user.is_authenticated %}
           <img
-            src="{{ url_for('profile_image', image_id=user.profilePicture_id) }}"
+            src="{{ url_for('user_profile_picture', user_id=current_user.id) }}"
             class="imgWidth"
             alt="Profile Image"
           />
@@ -47,7 +47,7 @@
             class="imgWidth"
             alt="Profile Image"
           />
-          {% endif %} {% endif %}
+          {% endif %}
         </a>
       </nav>
 

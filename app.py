@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify,make_response,flash
+from flask import Flask, render_template, request, redirect, url_for, jsonify,make_response,flash,send_from_directory
 from flask_pymongo import PyMongo
 from datetime import datetime
 from bson.objectid import ObjectId
@@ -8,7 +8,6 @@ from flask_login import login_user, logout_user, login_required
 from flask_login import UserMixin
 from flask_login import current_user
 import gridfs
-
 
 app = Flask(__name__)
 
@@ -74,12 +73,11 @@ def login():
             return redirect(url_for('profile'))
         flash('Usuário ou senha inválidos')
         return redirect(url_for('login'))
-    return render_template('login.html')
+    return render_template('login.html',user=current_user)
 
 @app.route("/profile",methods=['GET','POST'])
 @login_required
 def profile():
-    user = mongo.db.users.find_one({'_id': ObjectId(current_user.id)})
     if request.method == 'POST':
         profilePicture = request.files.get('profilePicture')
         if profilePicture and profilePicture.filename != '':
@@ -90,19 +88,26 @@ def profile():
             except Exception as e:
                 flash(f'Erro ao salvar a imagem')
                 return redirect(url_for('profile'))
-    return render_template('profile.html', user=user)
+    return render_template('profile.html')
 
 
-@app.route("/profile_image/<image_id>")
-def profile_image(image_id):
+@app.route("/user_profile_picture/<user_id>")
+def user_profile_picture(user_id):
     try:
-        image_id = ObjectId(image_id)  
-        image = fs.get(image_id)
-        response = make_response(image.read())
-        response.content_type = 'image/jpeg' 
-        return response
+        user = mongo.db.users.find_one({'_id': ObjectId(user_id)})
+        if user and 'profilePicture_id' in user:
+            image_id = user['profilePicture_id']
+            image = fs.get(image_id)
+            response = make_response(image.read())
+            response.content_type = 'image/jpeg'  # Ajuste conforme o formato da imagem
+            return response
+        else:
+            # Retornar a imagem padrão se o usuário ou imagem não for encontrado
+            return send_from_directory('static/images', 'perfilSemFoto.jpg'), 404
     except (gridfs.NoFile, Exception) as e:
-        return str(e), 404
+        return send_from_directory('static/images', 'perfilSemFoto.jpg'), 404
+
+
     
 @app.route("/")
 def index():
